@@ -1,20 +1,22 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Layout } from "../components/Layout";
-import { Home } from "../pages/Home";
-import { SearchResult } from "../pages/SearchResult";
-import ItemPage from "../pages/Item";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import { Layout } from "../components/layout";
+import { HomePage } from "../pages/home";
+import { LoginPage } from "../pages/login";
+import { MyDataPage } from "../pages/my-data";
+import { ReportPetPage } from "../pages/report-pet";
 
 export function AppRouter() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/search/:query" element={<SearchResult />} />
-          <Route path="/item/:id" element={<ItemPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <HashRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/my-data" element={<MyDataPage />} />
+          <Route path="/report-pet" element={<ReportPetPage />} />
+        </Routes>
+      </Layout>
+    </HashRouter>
   );
 }

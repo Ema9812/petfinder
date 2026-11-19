@@ -1,20 +1,18 @@
 import React from "react";
-import css from "./index.module.css";
+import css from "./text-field.module.css";
 
-type Props = {
+type TextFieldProps = {
+  label: string;
   name: string;
+  type?: string;
   placeholder?: string;
-  defaultValue?: string;
 };
 
-export function TextField({ name, placeholder, defaultValue }: Props) {
+export function TextField({ label, name, type = "text", placeholder }: TextFieldProps) {
   return (
-    <input
-      className={css.root}
-      type="text"
-      name={name}
-      placeholder={placeholder}
-      defaultValue={defaultValue}
-    />
+    <label className={css.root}>
+      <span className={css.label}>{label}</span>
+      <input className={css.input} name={name} type={type} placeholder={placeholder} />
+    </label>
   );
 }
