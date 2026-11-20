@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #26302e;
+}
+
+.logo {
+  font-size: 28px;
+  text-decoration: none;
+}
+
+.burger {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
