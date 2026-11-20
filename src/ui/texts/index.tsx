@@ -11,3 +11,7 @@ export function Subtitle({ children }: { children: React.ReactNode }) {
 export function Body({ children }: { children: React.ReactNode }) {
   return <p style={{ fontSize: 18, margin: 0 }}>{children}</p>;
 }
+
+export function Small({ children }: { children: React.ReactNode }) {
+  return <p style={{ fontSize: 14, margin: 0, textAlign: "center" }}>{children}</p>;
+}
