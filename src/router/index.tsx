@@ -6,6 +6,7 @@ import { LoginPage } from "../pages/login";
 import { LoginPasswordPage } from "../pages/login-password";
 import { RegisterPage } from "../pages/register";
 import { MyDataPage } from "../pages/my-data";
+import { MyPetsPage } from "../pages/my-pets";
 import { ReportPetPage } from "../pages/report-pet";
 
 export function AppRouter() {
@@ -18,6 +19,7 @@ export function AppRouter() {
           <Route path="/login/password" element={<LoginPasswordPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/my-data" element={<MyDataPage />} />
+          <Route path="/my-pets" element={<MyPetsPage />} />
           <Route path="/report-pet" element={<ReportPetPage />} />
         </Routes>
       </Layout>

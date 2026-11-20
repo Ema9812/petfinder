@@ -25,6 +25,19 @@ export function reportPetInfo(petId: string, data: { name: string; phone: string
   return post(`/pets/${petId}/report`, data);
 }
 
+export function createPet(data: { name: string; imageUrl: string; lat: number; lng: number; place: string }) {
+  return post("/pets", data);
+}
+
+export async function searchPlace(query: string): Promise<{ lat: number; lng: number } | null> {
+  const res = await fetch(
+    `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`
+  );
+  const results = await res.json();
+  if (results.length === 0) return null;
+  return { lat: Number(results[0].lat), lng: Number(results[0].lon) };
+}
+
 export async function getNearbyPets(lat: number, lng: number) {
   const res = await fetch(`${API_BASE_URL}/pets/around?lat=${lat}&lng=${lng}`);
   return res.json();
