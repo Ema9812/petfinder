@@ -8,20 +8,40 @@ type TextFieldProps = {
   placeholder?: string;
   defaultValue?: string;
   required?: boolean;
+  multiline?: boolean;
 };
 
-export function TextField({ label, name, type = "text", placeholder, defaultValue, required }: TextFieldProps) {
+export function TextField({
+  label,
+  name,
+  type = "text",
+  placeholder,
+  defaultValue,
+  required,
+  multiline,
+}: TextFieldProps) {
   return (
     <label className={css.root}>
       <span className={css.label}>{label}</span>
-      <input
-        className={css.input}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        defaultValue={defaultValue}
-        required={required}
-      />
+      {multiline ? (
+        <textarea
+          className={css.input}
+          name={name}
+          rows={4}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          required={required}
+        />
+      ) : (
+        <input
+          className={css.input}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          required={required}
+        />
+      )}
     </label>
   );
 }

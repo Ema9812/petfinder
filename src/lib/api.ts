@@ -21,6 +21,10 @@ export function registerUser(email: string, password: string) {
   return post("/auth", { email, password });
 }
 
+export function reportPetInfo(petId: string, data: { name: string; phone: string; where: string }) {
+  return post(`/pets/${petId}/report`, data);
+}
+
 export async function getNearbyPets(lat: number, lng: number) {
   const res = await fetch(`${API_BASE_URL}/pets/around?lat=${lat}&lng=${lng}`);
   return res.json();

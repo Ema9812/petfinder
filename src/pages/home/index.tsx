@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Title, Subtitle, Body } from "../../ui/texts";
 import { Button } from "../../ui/button";
 import { PetCard } from "../../components/pet-card";
-import { useNearbyPets } from "../../hooks/use-nearby-pets";
+import { ReportModal } from "../../components/report-modal";
+import { Pet, useNearbyPets } from "../../hooks/use-nearby-pets";
 
 export function HomePage() {
   const { pets, error, askLocation } = useNearbyPets();
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
 
   if (!pets) {
     return (
@@ -29,9 +31,10 @@ export function HomePage() {
           place={pet.place}
           imageUrl={pet.imageUrl}
           buttonLabel="Reportar"
-          onButtonClick={() => console.log("Reportar info de", pet.name)}
+          onButtonClick={() => setSelectedPet(pet)}
         />
       ))}
+      <ReportModal pet={selectedPet} onClose={() => setSelectedPet(null)} />
     </div>
   );
 }
