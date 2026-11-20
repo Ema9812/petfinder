@@ -11,6 +11,7 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
+  ignoreWarnings: [/Critical dependency: the request of a dependency is an expression/],
   module: {
     rules: [
       {
