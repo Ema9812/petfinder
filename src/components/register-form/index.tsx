@@ -14,26 +14,26 @@ export function RegisterForm() {
     e.preventDefault();
     setError("");
     const form = e.currentTarget;
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-    const password = (form.elements.namedItem("password") as HTMLInputElement).value;
-    const confirm = (form.elements.namedItem("confirm") as HTMLInputElement).value;
+    const get = (name: string) => (form.elements.namedItem(name) as HTMLInputElement).value;
 
-    if (password !== confirm) {
+    if (get("password") !== get("confirm")) {
       setError("Las contraseñas no coinciden.");
       return;
     }
 
     try {
-      await register(email, password);
+      await register(get("name"), get("email"), get("location"), get("password"));
       navigate("/");
     } catch {
-      setError("No pudimos crear la cuenta. Probá de nuevo.");
+      setError("No pudimos crear la cuenta. Revisá los datos o probá con otro email.");
     }
   }
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <TextField label="Nombre" name="name" required />
       <TextField label="Email" name="email" type="email" required />
+      <TextField label="Localidad" name="location" required />
       <TextField label="Contraseña" name="password" type="password" required />
       <TextField label="Confirmar contraseña" name="confirm" type="password" required />
       {error && <Small>{error}</Small>}

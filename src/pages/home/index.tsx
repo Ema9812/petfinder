@@ -24,6 +24,7 @@ export function HomePage() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <Subtitle>Mascotas perdidas cerca</Subtitle>
+      {pets.length === 0 && <Body>No hay mascotas perdidas cerca de tu ubicación.</Body>}
       {pets.map((pet) => (
         <PetCard
           key={pet.id}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getNearbyPets } from "../lib/api";
 
 export type Pet = {
   id: string;
@@ -7,12 +8,6 @@ export type Pet = {
   imageUrl: string;
 };
 
-const MOCK_PETS: Pet[] = [
-  { id: "1", name: "Bobby", place: "Núñez, Buenos Aires", imageUrl: "https://placedog.net/400/300?id=1" },
-  { id: "2", name: "Robert", place: "Núñez, Buenos Aires", imageUrl: "https://placedog.net/400/300?id=2" },
-  { id: "3", name: "Luna", place: "Palermo, Buenos Aires", imageUrl: "https://placedog.net/400/300?id=3" },
-];
-
 export function useNearbyPets() {
   const [pets, setPets] = useState<Pet[] | null>(null);
   const [error, setError] = useState("");
@@ -20,9 +15,13 @@ export function useNearbyPets() {
   function askLocation() {
     setError("");
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // Más adelante: getNearbyPets(position.coords.latitude, position.coords.longitude)
-        setPets(MOCK_PETS);
+      async (position) => {
+        try {
+          const found = await getNearbyPets(position.coords.latitude, position.coords.longitude);
+          setPets(found);
+        } catch {
+          setError("No pudimos cargar las mascotas. Probá de nuevo.");
+        }
       },
       () => setError("No pudimos obtener tu ubicación. Revisá los permisos del navegador.")
     );

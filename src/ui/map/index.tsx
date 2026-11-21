@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import MapGL, { Marker } from "react-map-gl/maplibre";
-import type { StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 type MapViewProps = {
@@ -10,7 +9,7 @@ type MapViewProps = {
 
 const DEFAULT_VIEW = { latitude: -34.6037, longitude: -58.3816, zoom: 11 };
 
-const OSM_STYLE: StyleSpecification = {
+const OSM_STYLE: any = {
   version: 8,
   sources: {
     osm: {

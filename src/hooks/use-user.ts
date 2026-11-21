@@ -42,8 +42,8 @@ export function useUser() {
     setPendingEmail("");
   }
 
-  async function register(email: string, password: string) {
-    await registerUser(email, password);
+  async function register(name: string, email: string, location: string, password: string) {
+    await registerUser(name, email, location, password);
     await login(email, password);
   }
 
