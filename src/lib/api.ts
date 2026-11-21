@@ -1,32 +1,53 @@
 const USE_MOCK = true; // cuando tengas la API real, cambialo a false
 const API_BASE_URL = "https://TU-API.com";
 
-async function post(path: string, body: object) {
+type PetData = {
+  name: string;
+  imageUrl: string;
+  lat: number;
+  lng: number;
+  place: string;
+};
+
+async function request(method: string, path: string, body?: object) {
   if (USE_MOCK) return { token: "token-de-prueba" };
 
   const res = await fetch(`${API_BASE_URL}${path}`, {
-    method: "POST",
+    method,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : undefined,
   });
   if (!res.ok) throw new Error("La petición falló");
-  return res.json();
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
 }
 
 export function authUser(email: string, password: string) {
-  return post("/auth/token", { email, password });
+  return request("POST", "/auth/token", { email, password });
 }
 
 export function registerUser(email: string, password: string) {
-  return post("/auth", { email, password });
+  return request("POST", "/auth", { email, password });
 }
 
 export function reportPetInfo(petId: string, data: { name: string; phone: string; where: string }) {
-  return post(`/pets/${petId}/report`, data);
+  return request("POST", `/pets/${petId}/report`, data);
 }
 
-export function createPet(data: { name: string; imageUrl: string; lat: number; lng: number; place: string }) {
-  return post("/pets", data);
+export function createPet(data: PetData) {
+  return request("POST", "/pets", data);
+}
+
+export function updatePet(id: string, data: PetData) {
+  return request("PUT", `/pets/${id}`, data);
+}
+
+export function markPetFound(id: string) {
+  return request("PATCH", `/pets/${id}/found`);
+}
+
+export function deletePet(id: string) {
+  return request("DELETE", `/pets/${id}`);
 }
 
 export async function searchPlace(query: string): Promise<{ lat: number; lng: number } | null> {

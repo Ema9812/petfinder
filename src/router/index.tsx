@@ -8,6 +8,7 @@ import { RegisterPage } from "../pages/register";
 import { MyDataPage } from "../pages/my-data";
 import { MyPetsPage } from "../pages/my-pets";
 import { ReportPetPage } from "../pages/report-pet";
+import { EditPetPage } from "../pages/edit-pet";
 
 export function AppRouter() {
   return (
@@ -21,6 +22,7 @@ export function AppRouter() {
           <Route path="/my-data" element={<MyDataPage />} />
           <Route path="/my-pets" element={<MyPetsPage />} />
           <Route path="/report-pet" element={<ReportPetPage />} />
+          <Route path="/edit-pet/:id" element={<EditPetPage />} />
         </Routes>
       </Layout>
     </HashRouter>

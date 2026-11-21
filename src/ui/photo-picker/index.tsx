@@ -5,9 +5,10 @@ import css from "./index.module.css";
 type PhotoPickerProps = {
   value: string;
   onChange: (dataUrl: string) => void;
+  changeLabel?: string;
 };
 
-export function PhotoPicker({ value, onChange }: PhotoPickerProps) {
+export function PhotoPicker({ value, onChange, changeLabel = "Cambiar foto" }: PhotoPickerProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -24,7 +25,7 @@ export function PhotoPicker({ value, onChange }: PhotoPickerProps) {
         {value ? <img className={css.image} src={value} alt="Foto de la mascota" /> : <span>Sin foto</span>}
       </div>
       <input ref={inputRef} type="file" accept="image/*" onChange={handleFile} hidden />
-      <Button onClick={() => inputRef.current?.click()}>{value ? "Cambiar foto" : "Agregar foto"}</Button>
+      <Button onClick={() => inputRef.current?.click()}>{value ? changeLabel : "Agregar foto"}</Button>
     </div>
   );
 }
