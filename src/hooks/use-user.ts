@@ -6,6 +6,25 @@ type User = { email: string; token: string } | null;
 const userState = atom<User>({
   key: "userState",
   default: null,
+  effects: [
+    ({ setSelf, onSet }) => {
+      try {
+        const saved = localStorage.getItem("user");
+        if (saved) setSelf(JSON.parse(saved));
+      } catch {
+        // si localStorage falla, la app sigue funcionando sin guardar la sesión
+      }
+
+      onSet((newValue) => {
+        try {
+          if (newValue) localStorage.setItem("user", JSON.stringify(newValue));
+          else localStorage.removeItem("user");
+        } catch {
+          // idem
+        }
+      });
+    },
+  ],
 });
 
 const pendingEmailState = atom<string>({
