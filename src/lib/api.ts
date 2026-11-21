@@ -9,12 +9,15 @@ type PetData = {
   place: string;
 };
 
-async function request(method: string, path: string, body?: object) {
+async function request(method: string, path: string, body?: object, token?: string) {
   if (USE_MOCK) return { token: "token-de-prueba" };
 
   const res = await fetch(`${API_BASE_URL}${path}`, {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `bearer ${token}` } : {}),
+    },
     body: body ? JSON.stringify(body) : undefined,
   });
   if (!res.ok) throw new Error("La petición falló");
@@ -28,6 +31,14 @@ export function authUser(email: string, password: string) {
 
 export function registerUser(email: string, password: string) {
   return request("POST", "/auth", { email, password });
+}
+
+export function updateProfile(data: { name: string; locality: string }, token: string) {
+  return request("PATCH", "/me", data, token);
+}
+
+export function updatePassword(password: string, token: string) {
+  return request("PATCH", "/me/password", { password }, token);
 }
 
 export function reportPetInfo(petId: string, data: { name: string; phone: string; where: string }) {
