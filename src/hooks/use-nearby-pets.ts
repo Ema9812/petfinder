@@ -6,6 +6,10 @@ export type Pet = {
   name: string;
   place: string;
   imageUrl: string;
+  status?: string;
+  reporterId?: number;
+  lat?: number;
+  lng?: number;
 };
 
 export function useNearbyPets() {
