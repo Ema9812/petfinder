@@ -1,6 +1,6 @@
 import type { Pet } from "../hooks/use-nearby-pets";
 
-const API_BASE_URL = "https://pet-finder-production-bca0.up.railway.app";
+const API_BASE_URL = "https://pet-finder-api-cal6.onrender.com";
 const SEARCH_RADIUS = 10000; // para probar con más alcance, subí este número
 const MOCK_PETS = true; // en el paso 2 lo cambiamos a false
 
